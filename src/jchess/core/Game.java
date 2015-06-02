@@ -32,7 +32,6 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import jchess.JChessApp;
 import jchess.core.moves.Moves;
-import jchess.display.panels.LocalDurationSettingAtStartView;
 import jchess.display.panels.LocalSettingsView;
 import jchess.display.views.chessboard.ChessboardView;
 import jchess.utils.Settings;
@@ -145,6 +144,12 @@ public class Game extends JPanel implements ComponentListener, MouseListener
         this.setDoubleBuffered(true);
         chessboardView.addMouseListener(this);
         this.addComponentListener(this);
+        
+        /**
+    	 * htd
+    	 */
+    	System.out.println("str " + this.getMoves().getMovesInString()); //ok, str empty at start
+    	//
     }
 
     /** Method to save actual state of game
@@ -170,6 +175,11 @@ public class Game extends JPanel implements ComponentListener, MouseListener
                     + "[White \"" + this.getSettings().getPlayerWhite().getName() + "\"]\n[Black \"" + this.getSettings().getPlayerBlack().getName() + "\"]\n\n";
         str += info;
         str += this.getMoves().getMovesInString();
+        /**
+         * htd
+         */
+        System.out.println("str " + str); //tested, making new move doesnt touch this line
+        //
         try
         {
             fileW.write(str);
@@ -716,6 +726,7 @@ public class Game extends JPanel implements ComponentListener, MouseListener
     		this.localSettingsView.remove(localSettingsOkButton);
     	}
     	// */
+    	
     	
     	
         super.repaint();

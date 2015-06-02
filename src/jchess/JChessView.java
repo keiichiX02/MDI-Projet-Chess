@@ -63,15 +63,6 @@ public class JChessView extends FrameView implements ActionListener, ComponentLi
         Game newGUI = new Game();
         this.gamesPane.addTab(title, newGUI);
         
-//        /**
-//         * htd
-//         */
-//        this.setNewGameFrame(new NewGameWindow());
-//        JChessApp.getApplication().show(this.getNewGameFrame());
-//        /**
-//         * htd
-//         */
-        
         return newGUI;
     }
 

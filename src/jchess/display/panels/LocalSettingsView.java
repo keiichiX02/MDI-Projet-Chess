@@ -71,26 +71,6 @@ public class LocalSettingsView extends JPanel implements ActionListener
         initRenderLabelsControl();
         refreshCheckBoxesState();
         
-        /**
-         * htd
-         * old try, span to below
-         
-        this.gbc.gridx = 0;
-        this.gbc.gridy = 3;
-        this.gbl.setConstraints(timeGame, gbc);
-        this.add(timeGame);
-        
-        this.gbc.gridx = 0;
-        this.gbc.gridy = 4;
-        this.gbl.setConstraints(time4Game, gbc);
-        this.add(time4Game);
-        
-        this.gbc.gridx = 0;
-        this.gbc.gridy = 5;
-        this.gbl.setConstraints(localSettingsOkButton, gbc);
-        this.add(localSettingsOkButton);
-        this.localSettingsOkButton.addActionListener(this); */
-        //
         
         /**
          * htd
@@ -111,8 +91,6 @@ public class LocalSettingsView extends JPanel implements ActionListener
         this.gbl.setConstraints(localSettingsOkButton, gbc);
         this.add(localSettingsOkButton);
         this.localSettingsOkButton.addActionListener(this);
-        
-        //to be worked on later, exo 2.2
         //
     }
     
@@ -198,7 +176,13 @@ public class LocalSettingsView extends JPanel implements ActionListener
     		this.remove(localSettingsOkButton);
     		System.out.println("popo");
     		this.revalidate();
-    	}
+    	}*/
+    	//
+    	
+    	/**
+    	 * htd try
+    	 
+    	System.out.println("toto " + this.game.getMoves().isMoveEmpty());
     	//*/
     	
         refreshCheckBoxesState();
