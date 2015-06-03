@@ -90,12 +90,6 @@ public class Game extends JPanel implements ComponentListener, MouseListener
    
     protected LocalSettingsView localSettingsView;
     
-    /**
-     * htd
-     */
-//    protected JTabbedPane tabPane2;
-//    protected LocalDurationSettingAtStartView localDurationSettingAtStartView;
-    //
 
     public Game()
     {
@@ -149,6 +143,7 @@ public class Game extends JPanel implements ComponentListener, MouseListener
     	 * htd
     	 */
     	System.out.println("str " + this.getMoves().getMovesInString()); //ok, str empty at start
+    	System.out.println("first move done? " + this.getMoves().isFirstMoveSpotted());
     	//
     }
 
@@ -175,11 +170,6 @@ public class Game extends JPanel implements ComponentListener, MouseListener
                     + "[White \"" + this.getSettings().getPlayerWhite().getName() + "\"]\n[Black \"" + this.getSettings().getPlayerBlack().getName() + "\"]\n\n";
         str += info;
         str += this.getMoves().getMovesInString();
-        /**
-         * htd
-         */
-        System.out.println("str " + str); //tested, making new move doesnt touch this line
-        //
         try
         {
             fileW.write(str);
@@ -410,6 +400,12 @@ public class Game extends JPanel implements ComponentListener, MouseListener
             if (getChessboard().getActiveSquare().getPiece().getAllMoves().contains(end)) //move
             {
                 getChessboard().move(begin, end);
+                
+                /**
+                 * htd
+                 */
+                this.localSettingsView.disableTimeConfirmButton();
+                //
             }
             else
             {
@@ -638,14 +634,6 @@ public class Game extends JPanel implements ComponentListener, MouseListener
     public void componentMoved(ComponentEvent e)
     {
         componentResized(e);
-        
-        /**
-         * htd
-         * exo 2.2: disable the choice of timer of not game
-         */
-        
-        //
-        
         repaint();
     }
 
@@ -718,17 +706,6 @@ public class Game extends JPanel implements ComponentListener, MouseListener
     @Override
     public void repaint()
     {
-    	/**
-    	 * htd
-    	 
-    	if(!(this.moves.isMoveEmpty())) {
-    		//remove the timer option, ok button etc...
-    		this.localSettingsView.remove(localSettingsOkButton);
-    	}
-    	// */
-    	
-    	
-    	
         super.repaint();
         if (null != this.tabPane)
         {

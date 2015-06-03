@@ -64,16 +64,13 @@ public class Moves extends AbstractTableModel
     private Game game;
     protected Stack<Move> moveBackStack = new Stack<Move>();
     protected Stack<Move> moveForwardStack = new Stack<Move>();
+    
+    private boolean firstMoveSpotted = false;
 
-    /**
-     * htd
-     * @param game
-     * @return true if this.move is empty, false otherwise
-     */
-    public boolean isMoveEmpty() {
-    	return this.move.isEmpty();
-    }
-    //
+    public boolean isFirstMoveSpotted() {
+		return firstMoveSpotted;
+	}
+
     
     public Moves(Game game)
     { 
@@ -255,6 +252,13 @@ public class Moves extends AbstractTableModel
         {
             Move moveToAdd = new Move(new Square(begin), new Square(end), begin.piece, end.piece, castlingMove, wasEnPassant, promotedPiece);
             this.moveBackStack.add(moveToAdd);
+            
+            /**
+             * htd
+             */
+            System.out.println("new move detected");
+            this.firstMoveSpotted = true;
+            //
         }
     }
 
@@ -438,12 +442,6 @@ public class Moves extends AbstractTableModel
             if (isMoveCorrect(singleMove))
             {
                 this.addMove(singleMove);
-                
-                /**
-                 * htd
-                 */
-                
-                //
             }
         }
     }

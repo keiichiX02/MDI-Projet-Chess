@@ -9,6 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,7 +27,7 @@ import jchess.utils.Settings;
  *
  * @author Mateusz Lach ( matlak, msl )
  */
-public class LocalSettingsView extends JPanel implements ActionListener
+public class LocalSettingsView extends JPanel implements ActionListener, ItemListener
 {
     private JCheckBox isUpsideDown;
     
@@ -40,7 +44,7 @@ public class LocalSettingsView extends JPanel implements ActionListener
     /**
      * htd
      */
-    JButton localSettingsOkButton;
+    JButton timeConfirmButton;
     JCheckBox timeGame;
     JComboBox time4Game; 
     String times[] =
@@ -59,10 +63,20 @@ public class LocalSettingsView extends JPanel implements ActionListener
         /**
          * htd
          */
-        this.localSettingsOkButton = new JButton(Settings.lang("ok"));
+        this.timeConfirmButton = new JButton(Settings.lang("ok"));
+        this.timeConfirmButton.setMnemonic(KeyEvent.VK_D);
+        this.timeConfirmButton.setActionCommand("confirmTimeGame");
+        this.timeConfirmButton.addActionListener(this);
+        this.timeConfirmButton.setToolTipText(
+        		"Click this button to confirm this is a time game");
+        
         this.timeGame = new JCheckBox(Settings.lang("time_game_min"));
+        this.timeGame.setMnemonic(KeyEvent.VK_T);
+        this.timeGame.setSelected(false);
+        this.timeGame.addItemListener(this);
+        
         this.time4Game = new JComboBox(times);
-        //
+        //htd
         
         this.setLayout(gbl);
         
@@ -88,9 +102,9 @@ public class LocalSettingsView extends JPanel implements ActionListener
         
         this.gbc.gridx = 1;
         this.gbc.gridy = 5;
-        this.gbl.setConstraints(localSettingsOkButton, gbc);
-        this.add(localSettingsOkButton);
-        this.localSettingsOkButton.addActionListener(this);
+        this.gbl.setConstraints(timeConfirmButton, gbc);
+        this.add(timeConfirmButton);
+        this.timeConfirmButton.addActionListener(this);
         //
     }
     
@@ -161,30 +175,12 @@ public class LocalSettingsView extends JPanel implements ActionListener
             game.getSettings().setRenderLabels(isRenderLabelsEnabled.isSelected());
             game.resizeGame();
         }
-        
         game.repaint();
     }
     
     @Override
     public void repaint()
     {
-    	/**
-    	 * htd
-    	 
-    	if(!(this.game.getMoves().isMoveEmpty())) {
-    		System.out.println("toto");
-    		this.remove(localSettingsOkButton);
-    		System.out.println("popo");
-    		this.revalidate();
-    	}*/
-    	//
-    	
-    	/**
-    	 * htd try
-    	 
-    	System.out.println("toto " + this.game.getMoves().isMoveEmpty());
-    	//*/
-    	
         refreshCheckBoxesState();
         super.repaint();
     }
@@ -194,4 +190,38 @@ public class LocalSettingsView extends JPanel implements ActionListener
         return null != isUpsideDown && null != isDisplayLegalMovesEnabled
                 && null != isRenderLabelsEnabled;
     }
+
+    /**
+     * htd
+     */
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		Object source = e.getItemSelectable();
+		if(source == this.timeGame) {
+			//todo
+			
+		}
+		
+		if(e.getStateChange() == ItemEvent.DESELECTED) {
+			//todo
+			this.timeConfirmButton.setEnabled(false);
+		}else {
+			this.timeConfirmButton.setEnabled(true);
+		}
+		
+		this.game.repaint();
+	}
+	
+	/**
+	 * htd
+	 */
+	public void disableTimeConfirmButton() {
+		//todo
+		this.timeConfirmButton.setEnabled(false);
+		String[] selectedItem = (String[]) time4Game.getSelectedItem();
+		System.out.println("selected time = " + Arrays.toString(selectedItem));
+		
+		this.game.repaint();
+	}
 }
